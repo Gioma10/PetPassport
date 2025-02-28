@@ -1,7 +1,10 @@
 import { useRouter } from "next/navigation"; // Importa il router per reindirizzare
 import { getAuth } from "firebase/auth";
 
-export default function Navbar() {
+import Image from "next/image";
+import Icon from '../../assets/userIcon.webp'
+
+export default function Navbar({username}) {
   const router = useRouter(); // Crea un'istanza del router
 
   const handleLogout = () => {
@@ -16,9 +19,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-[#FFD3B5] w-full py-2 px-2 flex justify-end">
+    <nav className="bg-[#FFD3B5] fixed w-full py-2 px-2 flex justify-between items-center">
+      <div className="flex gap-2 items-center">
+        <Image src={Icon} alt='User Icon' className="w-20" />
+        <p>Ciao, {username}</p>
+      </div>
       <button
-        className="px-2 py-2 border-2 border-[#efb48c] bg-[#6B4F4F] text-[#F5F5DC] rounded-xl"
+        className="px-2 py-2 border-2 border-black bg-white text-black rounded-xl"
         onClick={handleLogout}
       >
         Log out

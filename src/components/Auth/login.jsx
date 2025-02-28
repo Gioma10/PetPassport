@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Importa il router di Next.js
@@ -10,10 +10,31 @@ export default function Login({ selectIsLogin }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const router= useRouter(); // Hook per navigare tra le pagine
+  const router = useRouter(); // Hook per navigare tra le pagine
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Reset dell'errore e messaggio prima di ogni login
+    setError("");
+    setMessage("");
+
+    // Validazioni
+    if (!email || !password) {
+      setError("Per favore, inserisci email e password.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Per favore, inserisci un'email valida.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("La password deve essere lunga almeno 6 caratteri.");
+      return;
+    }
 
     try {
       const user = await signIn(email, password);
@@ -28,8 +49,18 @@ export default function Login({ selectIsLogin }) {
         router.push("/dashboard");
       }
     } catch (err) {
-      console.error("Errore durante il login:", err); // Stampa l'errore
-      setError("Si è verificato un errore durante il login."); // Mostra un messaggio generico in caso di errore
+        // Gestione errori Firebase
+      if (err.code === "auth/wrong-password") {
+        setError("La password inserita è errata.");
+      } else if (err.code === "auth/user-not-found") {
+        setError("L'utente con questa email non è stato trovato.");
+      } else if (err.code === "auth/invalid-credential") {
+        setError("Credenziali non valide. Verifica la tua email e password.");
+      } else {
+        // Messaggio generico per altri errori
+        setError("Si è verificato un errore durante il login.");
+      }
+      console.error("Errore durante il login:", err); // Log dell'errore
     }
   };
 
@@ -60,8 +91,8 @@ export default function Login({ selectIsLogin }) {
               Accedi
             </button>
           </div>
-          {error && <div className="text-red-500">{error}</div>}
-          {message && <div className="text-green-500">{message}</div>}
+          {error && <div className="text-[#ba3838]">{error}</div>}
+          {message && <div className="text-[#FFD3B5]">{message}</div>}
           <div className="text-sm flex gap-2">
             <p>Non hai ancora un account?</p>
             <button
