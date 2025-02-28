@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Importa il router di Next.js
 import { signIn } from "../../lib/auth";
-import Input from "./Input";
+import Input from "./InputForm";
 
 export default function Login({ selectIsLogin }) {
   const [email, setEmail] = useState("");

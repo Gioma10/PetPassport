@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import Image from "next/image";
 import Icon from '../../assets/userIcon.webp'
 
-export default function Navbar({username}) {
+export default function Navbar({username, selectAccount}) {
   const router = useRouter(); // Crea un'istanza del router
 
   const handleLogout = () => {
@@ -21,7 +21,7 @@ export default function Navbar({username}) {
   return (
     <nav className="bg-[#FFD3B5] fixed w-full py-2 px-2 flex justify-between items-center">
       <div className="flex gap-2 items-center">
-        <Image src={Icon} alt='User Icon' className="w-20" />
+        <Image src={Icon} alt='User Icon' className="w-20 cursor-pointer" onClick={selectAccount} />
         <p>Ciao, {username}</p>
       </div>
       <button

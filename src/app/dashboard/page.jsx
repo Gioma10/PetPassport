@@ -3,17 +3,19 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { getFirestore, doc, getDoc } from "firebase/firestore"; // Importa le funzioni Firestore
+import { doc, getDoc } from "firebase/firestore"; // Importa solo le funzioni necessarie di Firestore
+import { auth, db } from "../../lib/firebase"; // Importa da firebase.js
+
 import Navbar from "../../components/Dashboard/Navbar";
 import Paw from "../../components/Dashboard/Paw";
-import { auth } from "../../lib/firebase"; // Usa il file di inizializzazione
+import AccountDisplay from "../../components/Dashboard/AcountDisplay";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
+  const [viewAccount, setViewAccount]= useState(false)
   const [username, setUsername] = useState(""); // Stato per lo username
   const [isLoading, setIsLoading] = useState(true); // Stato per il caricamento
   const router = useRouter();
-  const db = getFirestore(); // Inizializza Firestore
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -42,6 +44,10 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, [router, db]);
 
+  function handleAccount(){
+    setViewAccount(prevAccount => !prevAccount)
+  }
+
   if (isLoading) {
     return (
         <div className="flex justify-center items-center relative">
@@ -51,12 +57,12 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="h-screen w-full">
-      <Navbar username={username}/>
+    <div className="h-screen w-full relative">
+      <Navbar username={username} selectAccount={handleAccount}/>
       <div className="flex justify-center items-center text-2xl h-full ">
         <p>Nessun passaporto selezionato</p>
-        {/* Se lo username esiste, lo mostriamo, altrimenti mostriamo l'email */}
       </div>
+      {viewAccount && <AccountDisplay username={username} selectAccount={handleAccount}/>}
     </div>
   );
 }
