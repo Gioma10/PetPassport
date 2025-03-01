@@ -10,7 +10,7 @@
   export const slideLeft = (duration = 0.8, delay = 0) => ({
     initial: { x: 500, opacity: 0.5 },
     animate: { x: 0, opacity: 1, transition: { duration, delay } },
-    exit: { opacity: 0, x: -100, transition: { duration } }
+    exit: { opacity: 0, x: 500, transition: { duration } }
   });
 
 
@@ -18,7 +18,7 @@
   export const slideRight = (duration = 0.8, delay = 0) => ({
     initial: { x: -500, opacity: 0.5 },
     animate: { x: 0, opacity: 1, transition: { duration, delay } },
-    exit: { opacity: 0, x: -100, transition: { duration } }
+    exit: { opacity: 0, x: -500, transition: { duration } }
   });
 
 

@@ -5,13 +5,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore"; // Importa solo le funzioni necessarie di Firestore
 import { auth, db } from "../../lib/firebase"; // Importa da firebase.js
-import { motion } from "framer-motion"
 
 import Navbar from "../../components/Dashboard/Navbar";
 import Paw from "../../components/Dashboard/Paw";
 import AccountDisplay from "../../components/Dashboard/AcountDisplay";
 import { PiEyesFill } from "react-icons/pi";
 import { GiPassport } from "react-icons/gi";
+import ControlBtn from "@/components/generic/RouteBtn";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -70,24 +70,8 @@ export default function Dashboard() {
           <p>Divertiti a creare il passaporto per il tuo animale domestico !!!</p>
         </div>
         <div className="flex gap-4">
-        <motion.div 
-            initial={{y:0}}
-            whileHover={{y:2}}
-            tranistion={{duration:1}}
-            onClick={()=> router.push('/new-passport')}
-            className="cursor-pointer flex gap-2 justify-center items-center bg-[#FFD3B5] px-5 py-2 rounded-xl shadow-xl">
-              <p>Crea</p>
-              <GiPassport />
-          </motion.div>
-          <motion.div 
-            initial={{y:0}}
-            whileHover={{y:2}}
-            tranistion={{duration:1}}
-            onClick={()=> router.push('/view-passport')}
-            className="cursor-pointer flex gap-2 justify-center items-center bg-[#FFD3B5] px-5 py-2 rounded-xl shadow-xl">
-              <p>Vedi</p>
-              <PiEyesFill />
-          </motion.div>
+          <ControlBtn name='Crea' icon={<GiPassport />} route='new-passport' />
+          <ControlBtn name='Vedi' icon={<PiEyesFill />} route='view-passport' />
         </div>
       </div>
       {viewAccount && <AccountDisplay username={username} selectAccount={handleAccount}/>}
