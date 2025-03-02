@@ -47,3 +47,9 @@
     animate: {y: 100, transition: { duration, delay } },
     exit: { opacity: 0, scale: 0.8, transition: { duration } }
   });
+  
+  export const hoverControlsBtn = (duration = 0.8, delay = 0) => ({
+    initial:{ y: 0},
+    whileHover: {y: 5, transition: { duration, delay } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration } }
+  });

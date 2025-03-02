@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { collection, addDoc, doc } from "firebase/firestore";
 
+import { Btn } from "@/components/Passport/PassportControls";
 import Image from "next/image";
 import Passport from "../../components/Passport/Passport";
 import AnimalProfile from "../../assets/animalProfile.png"; // Assicurati che l'immagine sia in "public/assets/"
@@ -18,6 +19,7 @@ export default function NewPassport() {
   const router = useRouter();
   const [isStamp, setIsStamp]= useState(false)
   const [pawAnimation, setPawAnimation]= useState(false)
+  const [error, setError]= useState('')
   const [isCheckingAuth, setIsCheckingAuth] = useState(true); // Stato per il controllo autenticazione
   const [passportData, setPassportData] = useState({
     nome: "",
@@ -54,13 +56,6 @@ export default function NewPassport() {
         return;
       }
       // console.log("Dati del passaporto prima del salvataggio:", passportData);
-      // Verifica che nessun campo sia vuoto
-      for (const key in passportData) {
-        if (!passportData[key]) {
-          alert(`Il campo "${key}" è vuoto. Compila tutti i campi.`);
-          return;
-        }
-      }
     
       try {
         // Riferimento alla collezione "passaporti" dentro il documento dell'utente
@@ -83,6 +78,13 @@ export default function NewPassport() {
     };
     
     const savePassportWithAnimation = () => {
+      // Verifica che nessun campo sia vuoto
+      for (const key in passportData) {
+        if (!passportData[key]) {
+          alert(`Il campo "${key}" è vuoto. Compila tutti i campi.`);
+          return;
+        }
+      }
       setPawAnimation(true); // Attiva l'animazione
 
       setTimeout(() => {
@@ -115,19 +117,7 @@ export default function NewPassport() {
           <h2 className="text-4xl">Crea il tuo passaporto</h2>
           <p className="text-sm">Inserisci le caratteristiche nei vari input e crea il tuo passaporto !!!</p>
         </div>
-        <div className="flex justify-center items-center gap-2">
-          <button
-              onClick={()=>router.push('/dashboard')}
-              className=" rounded-xl border px-2 py-1 hover:bg-[#FFD3B5] hover:text-[#6B4F4F]">
-              Indietro
-          </button>
-          <button 
-              onClick={savePassportWithAnimation}
-              className="rounded-xl border px-2 py-1 hover:bg-[#FFD3B5] hover:text-[#6B4F4F]"
-              >
-                  Salva
-          </button>
-        </div>
+          <Btn onClick={savePassportWithAnimation} name='Salva'/>
       </div>
       <div className="col-start-2 col-span-2 flex justify-center items-center overflow-hidden relative">
           {pawAnimation && <PawStamp />}
