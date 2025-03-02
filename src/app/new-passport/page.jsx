@@ -10,10 +10,14 @@ import Image from "next/image";
 import Passport from "../../components/Passport/Passport";
 import AnimalProfile from "../../assets/animalProfile.png"; // Assicurati che l'immagine sia in "public/assets/"
 import InputPass from "../../components/Passport/InputPass";
-import { scaleUp } from "@/animations/transition";
+import { scaleUp, passportStamp } from "@/animations/transition";
+import PawStamp from "@/components/Passport/PawStamp";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 export default function NewPassport() {
   const router = useRouter();
+  const [isStamp, setIsStamp]= useState(false)
+  const [pawAnimation, setPawAnimation]= useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true); // Stato per il controllo autenticazione
   const [passportData, setPassportData] = useState({
     nome: "",
@@ -26,6 +30,7 @@ export default function NewPassport() {
   });
 
   useEffect(() => {
+    setIsStamp(false);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
         router.push("/"); // Reindirizza subito se non autenticato
@@ -77,6 +82,17 @@ export default function NewPassport() {
       }
     };
     
+    const savePassportWithAnimation = () => {
+      setPawAnimation(true); // Attiva l'animazione
+
+      setTimeout(() => {
+        setIsStamp(true)
+      }, 1500); // Cambia il tempo in base alla durata dell'animazione
+      setTimeout(() => {
+        savePassportToUser(); // Salva nel database dopo l'animazione
+        setPawAnimation(false); // Reset dell'animazione se serve
+      }, 3000); // Cambia il tempo in base alla durata dell'animazione
+    };
   
     const handleChange = (event) => {
       setPassportData({
@@ -89,7 +105,12 @@ export default function NewPassport() {
 
   return (
     <div className="h-screen grid grid-cols-3 gap-5">
-      <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8"> 
+      <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative"> 
+        <div
+            className="absolute top-0 p-2 left-0 cursor-pointer border rounded-xl m-2"
+            onClick={()=>router.push('/dashboard')}>
+                <TiArrowBackOutline size={20}/>
+        </div>
         <div className="p-5 flex flex-col items-center justify-center">
           <h2 className="text-4xl">Crea il tuo passaporto</h2>
           <p className="text-sm">Inserisci le caratteristiche nei vari input e crea il tuo passaporto !!!</p>
@@ -101,15 +122,16 @@ export default function NewPassport() {
               Indietro
           </button>
           <button 
-              onClick={() => savePassportToUser(passportData)}
+              onClick={savePassportWithAnimation}
               className="rounded-xl border px-2 py-1 hover:bg-[#FFD3B5] hover:text-[#6B4F4F]"
               >
                   Salva
           </button>
         </div>
       </div>
-      <div className="col-start-2 col-span-2 flex justify-center items-center overflow-hidden ">
-          <Passport animation={scaleUp(1,0)}>
+      <div className="col-start-2 col-span-2 flex justify-center items-center overflow-hidden relative">
+          {pawAnimation && <PawStamp />}
+          <Passport animation={!pawAnimation ? scaleUp(1,0) : passportStamp(1,0)} stamp={isStamp}>
               {/* IMMAGINE PROFILO */}
               <div className="flex items-center justify-center col-start-1 cursor-pointer">
                 <input 

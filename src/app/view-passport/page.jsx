@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Image from "next/image";
 import { GiPassport } from "react-icons/gi";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 import AnimalProfile from "../../assets/animalProfile.png";
 import Passport from "@/components/Passport/Passport";
@@ -53,12 +54,12 @@ export default function ViewPassport() {
 
     const handlePrevPassport = () => {
         if (selectedPassportIndex > 0) setSelectedPassportIndex(selectedPassportIndex - 1);
-        setAnimationPass(slideRight(1, 0));
+        setAnimationPass(slideRight(0.3, 0));
     };
 
     const handleNextPassport = () => {
         if (selectedPassportIndex < passports.length - 1) setSelectedPassportIndex(selectedPassportIndex + 1);
-        setAnimationPass(slideLeft(1, 0));
+        setAnimationPass(slideLeft(0.3, 0));
     };
 
 
@@ -66,7 +67,12 @@ export default function ViewPassport() {
 
     return (
         <div className="h-screen grid grid-cols-3">
-            <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8">
+            <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative">
+                <div
+                    className="absolute top-0 p-2 left-0 cursor-pointer border rounded-xl m-2"
+                    onClick={()=>router.push('/dashboard')}>
+                        <TiArrowBackOutline size={20}/>
+                </div>
                 <div className="flex flex-col gap-2 justify-center items-center">
                     <h2 className="text-4xl">I tuoi passaporti</h2>
                     <p className="text-sm">Sfoglia i vari passaporti che hai creato!</p>
@@ -85,7 +91,7 @@ export default function ViewPassport() {
                 }
                 {/* Passaporto */}
                 {selectedPassport ? (
-                     <Passport key={selectedPassport.id} animation={animationPass}>
+                     <Passport key={selectedPassport.id} animation={animationPass} stamp={true}>
                          <div className="flex items-center justify-center col-start-1 cursor-pointer">
                              <Image
                                  src={AnimalProfile}

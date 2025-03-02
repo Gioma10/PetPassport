@@ -11,7 +11,7 @@ import Paw from "../../components/Dashboard/Paw";
 import AccountDisplay from "../../components/Dashboard/AcountDisplay";
 import { PiEyesFill } from "react-icons/pi";
 import { GiPassport } from "react-icons/gi";
-import ControlBtn from "@/components/generic/RouteBtn";
+import RouteBtn from "@/components/generic/RouteBtn";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -40,7 +40,7 @@ export default function Dashboard() {
           }
 
           setIsLoading(false); // Disabilita il loading dopo il timeout
-        }, 7000); // Ritardo di 1 secondo
+        }, 4000); // Ritardo di 1 secondo
       }
     });
 
@@ -70,8 +70,8 @@ export default function Dashboard() {
           <p>Divertiti a creare il passaporto per il tuo animale domestico !!!</p>
         </div>
         <div className="flex gap-4">
-          <ControlBtn name='Crea' icon={<GiPassport />} route='new-passport' />
-          <ControlBtn name='Vedi' icon={<PiEyesFill />} route='view-passport' />
+          <RouteBtn name='Crea' icon={<GiPassport />} route='new-passport' />
+          <RouteBtn name='Vedi' icon={<PiEyesFill />} route='view-passport' />
         </div>
       </div>
       {viewAccount && <AccountDisplay username={username} selectAccount={handleAccount}/>}

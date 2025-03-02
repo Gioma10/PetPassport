@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-export default function ControlBtn({name, icon, route}){
+export default function RouteBtn({name, icon, route}){
     const router = useRouter()
     return (
         <motion.div 

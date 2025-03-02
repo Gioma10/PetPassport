@@ -8,16 +8,16 @@
 
 
   export const slideLeft = (duration = 0.8, delay = 0) => ({
-    initial: { x: 500, opacity: 0.5 },
-    animate: { x: 0, opacity: 1, transition: { duration, delay } },
+    initial: { x: 500, },
+    animate: { x: 0, transition: { duration, delay,  ease: 'easeOut' } },
     exit: { opacity: 0, x: 500, transition: { duration } }
   });
 
 
 
   export const slideRight = (duration = 0.8, delay = 0) => ({
-    initial: { x: -500, opacity: 0.5 },
-    animate: { x: 0, opacity: 1, transition: { duration, delay } },
+    initial: { x: -500,},
+    animate: { x: 0, transition: { duration, delay, ease: 'easeOut' } },
     exit: { opacity: 0, x: -500, transition: { duration } }
   });
 
@@ -40,4 +40,10 @@
     viewport:{ once: false, amount: 0.5 }, // Attiva quando il 50% dell'elemento è visibile
     exit: { opacity: 0, scale: 0.8, transition: { duration } }
   });
-
+  
+  
+  export const passportStamp = (duration = 0.8, delay = 0) => ({
+    initial:{ y: 0},
+    animate: {y: 100, transition: { duration, delay } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration } }
+  });
