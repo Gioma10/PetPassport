@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import Input from "./InputForm";
 
@@ -55,6 +56,14 @@ export default function Register({ selectIsLogin }) {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await sendEmailVerification(user);
+
+      // Salva i dati dell'utente in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        username: username,
+        email: email,
+        createdAt: new Date(),
+        uid: user.uid
+      });
       console.log("Registrazione riuscita!");
       
       setEmail("");
