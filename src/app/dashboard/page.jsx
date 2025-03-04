@@ -66,15 +66,17 @@ export default function Dashboard() {
       <Navbar username={username} selectAccount={handleAccount}/>
       <div className="flex flex-col justify-center gap-8 items-center h-full ">
         <div className="flex flex-col justify-center items-center gap-2">
-          <h1 className="text-8xl">Pet Passport</h1>
-          <p>Divertiti a creare il passaporto per il tuo animale domestico !!!</p>
+          <h1 className="text-center text-6xl md:text-8xl">Pet Passport</h1>
+          <p className="text-xs sm:text-sm md:text-base">Crea il passaporto per il tuo animale domestico !!!</p>
         </div>
         <div className="flex gap-4">
           <RouteBtn name='Crea' icon={<GiPassport />} route='new-passport' />
           <RouteBtn name='Vedi' icon={<PiEyesFill />} route='view-passport' />
         </div>
       </div>
-      {viewAccount && <AccountDisplay username={username} selectAccount={handleAccount}/>}
+
+      {/* Barra Utente  */}
+      {/* {viewAccount && <AccountDisplay username={username} selectAccount={handleAccount}/>} */}
     </div>
   );
 }

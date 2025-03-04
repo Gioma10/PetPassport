@@ -106,8 +106,8 @@ export default function NewPassport() {
     // console.log(passportData);
 
   return (
-    <div className="h-screen grid grid-cols-3 gap-5">
-      <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative"> 
+    <div className="h-screen grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-5">
+      <div className="h-full row-start-3 md:row-start-1 md:col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative"> 
         <div
             className="absolute top-0 p-2 left-0 cursor-pointer border rounded-xl m-2"
             onClick={()=>router.push('/dashboard')}>
@@ -115,15 +115,15 @@ export default function NewPassport() {
         </div>
         <div className="p-5 flex flex-col items-center justify-center">
           <h2 className="text-4xl">Crea il tuo passaporto</h2>
-          <p className="text-sm">Inserisci le caratteristiche nei vari input e crea il tuo passaporto !!!</p>
+          <p className="text-xs md:text-sm">Inserisci le caratteristiche nei vari input e crea il tuo passaporto !!!</p>
         </div>
           <Btn onClick={savePassportWithAnimation} name='Salva'/>
       </div>
-      <div className="col-start-2 col-span-2 flex justify-center items-center overflow-hidden relative">
+      <div className="row-start-1 row-span-2 md:row-span-1 md:col-start-2 md:col-span-2 flex justify-center items-center overflow-hidden relative">
           {pawAnimation && <PawStamp />}
           <Passport animation={!pawAnimation ? scaleUp(1,0) : passportStamp(1,0)} stamp={isStamp}>
               {/* IMMAGINE PROFILO */}
-              <div className="flex items-center justify-center col-start-1 cursor-pointer">
+              <div className="flex w-full items-center justify-center col-start-1 cursor-pointer">
                 <input 
                   type="file" 
                   accept="image/*" 
@@ -136,18 +136,18 @@ export default function NewPassport() {
                     alt="User Icon" 
                     width={200}
                     height={200}
-                    className="rounded-full border-2 border-black cursor-pointer"
+                    className="rounded-full border-2 w-full border-black cursor-pointer"
                   />
                 </label>
               </div>
       
               {/* FORM */}
-              <div className="flex flex-col gap-4 col-start-2 w-full col-span-2">
-                <div className="flex gap-4 ">
+              <div className="flex flex-col gap-2 sm:gap-4 sm:col-start-2 w-full  sm:col-span-2">
+                <div className="flex gap-2 sm:gap-4 ">
                   <InputPass label='Cognome' type="text" name='cognome' onChange={handleChange}/>
                   <InputPass label='Nome' type="text" name='nome' onChange={handleChange} />
                 </div>
-                <div className="flex gap-4 ">
+                <div className="flex gap-2 sm:gap-4 ">
                   <InputPass label='Nazionalità' type="text" name='nazionalita' onChange={handleChange} />
                   <InputPass label='Luogo di nascita' type="text" name='luogoDiNascita' onChange={handleChange} />
                 </div>

@@ -8,7 +8,7 @@ export default function Passport({children, animation, stamp}) {
   return (
       <motion.div 
         {...animation}
-        className="bg-[#FFD3B5] w-[30rem] relative pattern-pass border-x-2 border-b-2 shadow-2xl border-[#6b4f4f] rounded-xl  p-5 flex flex-col items-center gap-5"
+        className="bg-[#FFD3B5] md:w-[30rem] relative pattern-pass border-x-2 border-b-2 shadow-2xl border-[#6b4f4f] rounded-xl  p-5 flex flex-col items-center gap-5"
       >
         <div className="rounded-xl pattern-pass border-x-2 border-t-2 shadow-2xl border-[#6b4f4f] bg-[#FFD3B5] absolute bottom-full w-full h-full">
           {stamp && <div className="border w-full h-full relative">

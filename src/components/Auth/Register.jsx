@@ -81,13 +81,13 @@ export default function Register({ selectIsLogin }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-10">
+    <div className="flex flex-col justify-center items-center gap-5 md:gap-10">
       <div className="flex justify-center items-center flex-col gap-2">
         <h2 className="text-4xl">Benvenuto</h2>
-        <p className="text-sm">Registriamoci insieme e realizza il tuo passaporto !!!</p>
+        <p className="text-xs sm:text-sm">Registriamoci insieme e realizza il tuo passaporto !!!</p>
       </div>
       <form onSubmit={handleRegister}>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-5 md:gap-10">
           <div className="flex flex-col gap-4">
             <div className="flex justify-center gap-2">
               <Input 
@@ -115,13 +115,13 @@ export default function Register({ selectIsLogin }) {
             </div>
           </div>
           <div className="flex justify-center">
-            <button className="border border-[#6B4F4F] px-2 py-1 rounded-xl" type="submit">
+            <button className="border border-[#6B4F4F] px-2 py-1 rounded-xl text-xs sm:text-sm md:text-base" type="submit">
               Registrati
             </button>
           </div>
           {error && <div className="text-[#ba3838]">{error}</div>}
           {message && <div className="text-[#FFD3B5]">{message}</div>}
-          <div className="text-sm flex gap-2">
+          <div className="text-xs sm:text-sm flex gap-2">
             <p>Sei già registrato?</p>
             <button type="button" onClick={selectIsLogin} className="border-b-2 border-transparent hover:border-[#6B4F4F]">
               Accedi

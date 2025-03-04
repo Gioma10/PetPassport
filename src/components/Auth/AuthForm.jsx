@@ -16,7 +16,7 @@ export default function AuthForm() {
   }
   return (
       <div className='relative text-[#6B4F4F]'>
-        <div className='flex bg-[#FFD3B5] p-10 rounded-lg shadow-lg relative z-10'>
+        <div className='flex bg-[#FFD3B5] p-5 sm:p-10 rounded-lg shadow-lg relative z-10'>
           {isLogin && <Login selectIsLogin={handleIsLogin}/>}
           {!isLogin && <Register selectIsLogin={handleIsLogin}/>}
         </div>

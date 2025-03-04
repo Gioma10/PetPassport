@@ -66,8 +66,8 @@ export default function ViewPassport() {
     const selectedPassport = passports[selectedPassportIndex];
 
     return (
-        <div className="h-screen grid grid-cols-3">
-            <div className="h-full col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative">
+        <div className="h-screen grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
+            <div className="h-full row-start-3 md:row-start-1 md:col-start-1 flex flex-col justify-center items-center bg-[#6B4F4F] text-white gap-8 relative">
                 <div
                     className="absolute top-0 p-2 left-0 cursor-pointer border rounded-xl m-2"
                     onClick={()=>router.push('/dashboard')}>
@@ -85,7 +85,7 @@ export default function ViewPassport() {
                         handleDelete={() => handleDeletePassport(selectedPassport, passports, setPassports, setSelectedPassportIndex, selectedPassportIndex)}/>
                 }
             </div>
-            <div className="col-start-2 col-span-2 flex justify-center items-center relative overflow-hidden">
+            <div className="row-start-1 row-span-2 md:row-span-1 md:col-start-2 md:col-span-2 flex justify-center items-center relative overflow-hidden">
                 {(selectedPassport && !isEditing) &&
                     <PassportNavigation handlePrev={handlePrevPassport} handleNext={handleNextPassport} />
                 }

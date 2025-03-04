@@ -21,15 +21,15 @@ export default function Navbar({username, selectAccount}) {
 
   return (
     <nav className="bg-[#FFD3B5] fixed w-full py-2 px-2 flex justify-between items-center">
-      <div className="flex gap-2 items-center">
-        <Image src={Icon} alt='User Icon' className="w-20 cursor-pointer" onClick={selectAccount} />
-        <p>Ciao, {username}</p>
+      <div className="flex sm:gap-2 items-center">
+        <Image src={Icon} alt='User Icon' className="w-16 sm:w-20 cursor-pointer" onClick={selectAccount} />
+        <p className="text-xs sm:text-base">Ciao, {username}</p>
       </div>
       <motion.button
         initial={{y:-5}}
         whileHover={{y:0}}
         transition={{duration: 0.5, ease: 'easeOut'}}
-        className="px-3 py-1 border-2 border-[#6B4F4F] bg-[#e8e8d5] text-[#6B4F4F] rounded-xl shadow-xl"
+        className="px-1 sm:px-3 py-1 text-sm sm:text-base border-2 border-[#6B4F4F] bg-[#e8e8d5] text-[#6B4F4F] rounded-xl shadow-xl"
         onClick={handleLogout}>
         Log out
       </motion.button>
